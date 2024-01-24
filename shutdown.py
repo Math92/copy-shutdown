@@ -5,7 +5,7 @@ import time
 # Directorio destino donde se copiarán los archivos
 destination_directory = "C:/User/destination_folder/"
 
-# Función para copiar archivos desde un dispositivo USB/CD a la PC
+# Función para copiar archivos desde un dispositivo de almacenamiento externo a la PC
 def copy_files(source):
     # Verificar si el directorio fuente existe
     if not os.path.exists(source):
@@ -41,7 +41,7 @@ def main():
     if copy_files(source):
         print(f"Archivos copiados con éxito desde {source} a {destination_directory}")
         # Apagar el sistema después de la copia
-        shutdown_system(10)  # Ajusta este valor a 10 o 20 según lo prefieras
+        shutdown_system(10)  # Ajusta este valor
     else:
         print("La copia de archivos no se completó con éxito.")
 

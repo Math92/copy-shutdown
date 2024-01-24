@@ -1,48 +1,48 @@
-=====Script de Copia y Apagado Automático=====
+=====Copy and Auto Shutdown Script=====
 
 //
-Descripción
-Este script de Python detecta la inserción de un dispositivo USB, copia archivos específicos de ese dispositivo a la PC y, a continuación, apaga automáticamente la computadora.
+Description
+This Python script detects the insertion of a USB device, copies specific files from that device to the PC, and then automatically shuts down the computer.
 
-Requisitos Previos
-Python: Debe estar instalado en su sistema Windows 10. Puede descargarlo de https://www.python.org/downloads/release/python-3121/  
-Elige la version segun tu sistema (Windows installer (32 -bit),Windows installer (64-bit),	Windows install(ARM64))
-
-
-Privilegios de Administrador: Para que el script pueda apagar su sistema, necesita ser ejecutado con privilegios de administrador.
-
-Configuración Inicial
-Descargar el Script: Descargue el script shutdown.py a su computadora.
-
-Modificar el Directorio Destino (Opcional): Si desea cambiar el directorio donde se copiarán los archivos, edite la variable destination_directory en el script.
+Previous requirements
+Python: It must be installed on your Windows 10 system. You can download it from https://www.python.org/downloads/release/python-3121/
+Choose the version according to your system (Windows installer (32-bit), Windows installer (64-bit), Windows install (ARM64))
 
 
-//
-Ejecución del Script
-Abrir el Símbolo del Sistema con Privilegios de Administrador:
+Administrator Privileges: In order for the script to shutdown your system, it needs to be run with administrator privileges.
 
--Busque "cmd" en el menú de inicio, haga clic derecho en "Símbolo del sistema" y seleccione "Ejecutar como administrador".
-Navegar hasta el Directorio del Script:
+Initial setup
+Download the Script: Download the shutdown.py script to your computer.
 
--Utilice el comando cd para cambiar al directorio donde guardó shutdown.py.
-Por ejemplo: 'cd C:\Users\TuNombre\Descargas'
-Ejecutar el Script:
-
--Ejecute el script con el comando desde la carpeta raiz: 'python3 shutdown.py'
-Siga las instrucciones en pantalla para ingresar la ruta del dispositivo USB/CD.
-Finalización:
-
--Después de copiar los archivos, el script esperará 10 segundos (o el tiempo que haya configurado) y luego apagará la computadora.
-Notas Adicionales
+Modify the Destination Directory (Optional): If you want to change the directory where the files will be copied, edit the destination_directory variable in the script.
 
 
 //
-Seguridad de Datos: Asegúrese de que los archivos que desea copiar no contengan información sensible o confidencial, ya que el script no discrimina el tipo de archivo.
-Prueba del Script: Es recomendable probar primero el script en un entorno seguro para asegurarse de que funciona como se espera.
+Script Execution
+Open Command Prompt with Administrator Privileges:
+
+-Find "cmd" in the start menu, right-click "Command Prompt" and select "Run as administrator".
+Navigate to the Script Directory:
+
+-Use the cd command to change to the directory where you saved shutdown.py.
+For example: 'cd C:\Users\YourName\Downloads'
+Run the Script:
+
+-Run the script with the command from the root folder: 'python3 shutdown.py' or 'python3 shutdown.py'
+Follow the on-screen instructions to enter the USB/CD device path.
+Ending:
+
+-After copying the files, the script will wait 10 seconds (or however long you have set) and then shut down the computer.
+Additional notes
 
 
 //
-Detención de Emergencia: Si necesita detener el apagado después de ejecutar el script, puede cancelarlo ejecutando 'shutdown -a' en una ventana de comando.
+Data Security: Make sure that the files you want to copy do not contain sensitive or confidential information, since the script does not discriminate file type.
+Testing the Script: It is advisable to first test the script in a safe environment to ensure that it works as expected.
+
+
+//
+Emergency Stop: If you need to stop the shutdown after running the script, you can cancel it by running 'shutdown -a' in a command window.
 
 
 
@@ -53,4 +53,4 @@ Detención de Emergencia: Si necesita detener el apagado después de ejecutar el
 
 
 
-                                                                            --Mathias Santos
+                                                                             --Mathias Santos
