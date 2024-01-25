@@ -1,30 +1,37 @@
-=====Copy and Auto Shutdown Script=====
 
-README - Copy and Auto Shutdown Script
+--------------------------Copy and Auto Shutdown Script--------------------------
+
+
 Description
-This Python script, converted into an .exe executable, detects the insertion of a USB device, copies specific files from that device to the PC, and then automatically shuts down the computer. The script now includes a Graphical User Interface (GUI) for easier interaction.
-
-
+This Python script, packaged as a Windows 10 executable named copy-shutdown.exe, provides a convenient and user-friendly way to copy files from an external storage device to a PC, and then automatically shuts down the computer after a predetermined time interval. This tool now includes a Graphical User Interface (GUI), enhancing ease of use and interaction.
 
 Prerequisites
-Windows 10: This executable is designed to work on Windows 10.
-Administrator Privileges: To allow the executable to shut down your system, it must be run with administrator privileges.
-Initial Setup
-Download the Executable: Download the CopyAutoShutdown.exe file to your computer.
-Script Execution
+Operating System: Designed specifically for Windows 10.
+Administrator Privileges: The executable must be run with administrator privileges to enable system shutdown functionality.
 
-Open the Executable:
-Double-click on CopyAutoShutdown.exe to start the program.
-Using the Graphical Interface:
-Follow the instructions in the graphical interface to select a USB/CD device and a destination folder for the files.
+Initial Setup
+Download the Executable: Download the copy-shutdown.exe file to your Windows 10 computer.
+
+Script Execution
+Open the Executable: Double-click on copy-shutdown.exe to start the program.
+Using the Graphical Interface: The GUI will guide you to select a USB/CD device and a destination folder for copying the files.
 
 Copy and Shutdown Process:
-After selecting the files, the program will initiate the file copying process followed by a countdown for shutdown.
+Select the source (external storage) and destination (folder on your PC) for copying files.
+Confirm the file copying operation in the GUI.
+After the file transfer, the PC will display a countdown and shut down automatically after 10 seconds (or a specified interval).
 
+Features
+User-Friendly Interface: A simple and intuitive GUI for all operations.
+Selective Copying: Users can choose specific files or folders for copying.
+Automatic Shutdown: The PC will shut down automatically, making it convenient for backup operations before leaving the computer.
 
 Additional Notes
-Data Security: Ensure that the files you wish to copy do not contain sensitive or confidential information, as the program does not discriminate the type of file.
-Script Testing: It is advisable to first test the executable in a safe environment to ensure that it works as expected.
+Data Security: Be cautious with the files you choose to copy. Ensure they do not contain sensitive or confidential information, as the program does not filter file types.
+Script Testing: Test the executable in a controlled environment to verify its functionality.
+Emergency Stop: If you need to halt the shutdown process after initiating, there is an option within the GUI to cancel the shutdown.
 
-
-Emergency Stop: If you need to stop the shutdown after running the program, you can do so by selecting the corresponding option in the graphical interface.
+Technical Details
+-Language: Python
+-External Libraries: Tkinter for GUI, os and shutil for file operations
+-Executable Creation: The script is converted into an executable using PyInstaller, a Python file manager, ensuring compatibility and ease of distribution for Windows 10 systems.

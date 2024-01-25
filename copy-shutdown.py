@@ -45,9 +45,19 @@ def gui_app():
                 if os.path.isfile(file_path):
                     shutil.copy(file_path, destination_directory)
                     text_widget.insert(tk.END, f"Copiando: {filename}\n")
-            text_widget.insert(tk.END, "Archivos copiados con éxito.\n")
+
+            text_widget.insert(tk.END, "Archivos copiados con éxito. Apagando la PC en 10 segundos...\n")
+            root.after(10000, shutdown_system)  # Llamada a la función shutdown_system después de 10 segundos
         except Exception as e:
             text_widget.insert(tk.END, f"Ocurrió un error al copiar los archivos: {e}\n")
+
+    def shutdown_system():
+        try:
+            text_widget.insert(tk.END, "Apagando la PC...\n")
+            # Puedes agregar aquí la lógica para apagar la PC en lugar del mensaje
+            os.system("shutdown /s /t 1")
+        except Exception as e:
+            text_widget.insert(tk.END, f"Ocurrió un error al apagar la PC: {e}\n")
 
     ttk.Button(root, text="Seleccionar Unidad y Carpeta para Copiar Archivos", command=copy_files_gui).pack(pady=10)
 
