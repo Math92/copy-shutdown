@@ -1,102 +1,64 @@
 import os
 import shutil
 import time
+import tkinter as tk
+from tkinter import ttk, filedialog, messagebox
 
 # Directorio destino donde se copiarán los archivos
 destination_directory = "C:/User/destination_folder/"
 
-# Función para mostrar las unidades de almacenamiento disponibles
-def list_available_drives():
-    drives = [f"{chr(65 + drive)}:" for drive in range(26) if os.path.exists(f"{chr(65 + drive)}:")]
-    if not drives:
-        print("No se encontraron unidades de almacenamiento disponibles.")
-    else:
-        print("Unidades de almacenamiento disponibles:")
-        for i, drive in enumerate(drives, start=1):
-            print(f"{i}. {drive}")
-    return drives
+def gui_app():
+    root = tk.Tk()
+    root.title("Copy and Auto Shutdown")
 
-# Función para obtener la opción del usuario
-def get_user_choice(options):
-    while True:
+    # Área de texto para mostrar mensajes al usuario
+    text_widget = tk.Text(root, height=15, width=50)
+    text_widget.pack(pady=10)
+
+    # Función para copiar archivos con GUI
+    def copy_files_gui():
+        source = filedialog.askdirectory(title="Seleccione la unidad de almacenamiento")
+        if not source:
+            text_widget.insert(tk.END, "No se seleccionó ninguna unidad de almacenamiento.\n")
+            return
+
+        global destination_directory
+        destination_directory = filedialog.askdirectory(title="Seleccione la carpeta de destino")
+        if not destination_directory:
+            text_widget.insert(tk.END, "No se seleccionó ninguna carpeta de destino.\n")
+            return
+
         try:
-            choice = int(input("Seleccione una opción: "))
-            if 1 <= choice <= len(options):
-                return options[choice - 1]
-            else:
-                print("Opción no válida. Inténtelo de nuevo.")
-        except ValueError:
-            print("Por favor, ingrese un número válido.")
+            file_list = os.listdir(source)
+            text_widget.insert(tk.END, "Listado de archivos en el dispositivo:\n")
+            for filename in file_list:
+                text_widget.insert(tk.END, f"{filename}\n")
 
-# Función para copiar archivos desde un dispositivo de almacenamiento externo a la PC
-def copy_files(source):
-    # Verificar si el directorio fuente existe
-    if not os.path.exists(source):
-        print(f"No se encontró el dispositivo en {source}. Por favor, verifique la ruta y vuelva a intentarlo.")
-        return False
+            user_choice = messagebox.askyesno("Confirmación", "¿Desea copiar estos archivos?")
+            if not user_choice:
+                text_widget.insert(tk.END, "Operación cancelada por el usuario.\n")
+                return
 
-    # Crear el directorio destino si no existe
-    if not os.path.exists(destination_directory):
-        os.makedirs(destination_directory)
+            text_widget.insert(tk.END, "Copiando archivos:\n")
+            for filename in file_list:
+                file_path = os.path.join(source, filename)
+                if os.path.isfile(file_path):
+                    shutil.copy(file_path, destination_directory)
+                    text_widget.insert(tk.END, f"Copiando: {filename}\n")
+            text_widget.insert(tk.END, "Archivos copiados con éxito.\n")
+        except Exception as e:
+            text_widget.insert(tk.END, f"Ocurrió un error al copiar los archivos: {e}\n")
 
-    # Obtener la lista de archivos en el directorio fuente
-    file_list = os.listdir(source)
+    ttk.Button(root, text="Seleccionar Unidad y Carpeta para Copiar Archivos", command=copy_files_gui).pack(pady=10)
 
-    # Mostrar el listado de archivos
-    print("Listado de archivos en el dispositivo:")
-    for filename in file_list:
-        print(filename)
+    # Función para cerrar la aplicación
+    def close_app():
+        if messagebox.askokcancel("Cerrar", "¿Está seguro de que desea cerrar el programa?"):
+            root.destroy()
 
-    # Preguntar al usuario si desea continuar con la copia
-    user_choice = input("¿Desea copiar estos archivos? (Sí/No): ").lower()
-    if user_choice != 'si':
-        print("Operación cancelada por el usuario.")
-        return False
+    ttk.Button(root, text="Cerrar", command=close_app).pack(pady=10)
 
-    # Copiar archivos y mostrar el listado mientras se copian
-    print("Copiando archivos:")
-    try:
-        for filename in file_list:
-            file_path = os.path.join(source, filename)
-            if os.path.isfile(file_path):
-                print(f"Copiando: {filename}")
-                shutil.copy(file_path, destination_directory)
-        return True
-    except Exception as e:
-        print(f"Ocurrió un error al copiar los archivos: {e}")
-        return False
+    root.mainloop()
 
-# Función para apagar el sistema
-def shutdown_system(delay_seconds=10):
-    print(f"Apagando el sistema en {delay_seconds} segundos...")
-    time.sleep(delay_seconds)
-    os.system("shutdown /s /t 1")
-    exit()  # Añadido para asegurarse de que el script finalice después de iniciar el apagado
-
-# Función principal
-def main():
-    print("Esperando la conexión de un dispositivo USB o CD...")
-    
-    # Mostrar opciones de unidades de almacenamiento
-    available_drives = list_available_drives()
-    if not available_drives:
-        return
-    
-    # Permitir al usuario elegir una unidad de almacenamiento
-    source_drive = get_user_choice(available_drives)
-    source = f"{source_drive}/"
-
-    # Permitir al usuario elegir la carpeta de destino
-    global destination_directory
-    destination_directory = input("Ingrese la carpeta de destino para guardar los archivos: ")
-
-    if copy_files(source):
-        print(f"Archivos copiados con éxito desde {source} a {destination_directory}")
-        # Apagar el sistema después de la copia
-        shutdown_system(10)  # Ajusta este valor
-    else:
-        print("La copia de archivos no se completó con éxito.")
-
-# Ejecutando la función principal
 if __name__ == "__main__":
-    main()
+    gui_app()
